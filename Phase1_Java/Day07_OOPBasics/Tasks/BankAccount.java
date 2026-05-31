@@ -1,132 +1,72 @@
 /*
 Question:
-How can you create a Java program to Create private fields accountNo, holderName, and balance with deposit and withdraw methods that validate inputs?
+How can you create a Java program with private balance, deposit(validates > 0), withdraw(validates sufficient balance), and toString()?
 */
-
 import java.util.Scanner;
-class Bankacc{
 
-    private int accountn;
-    private String holder;
-    private int balance;
+class BankAccount {
+    private String accountNo;
+    private String holderName;
+    private double balance;
 
-
-    public Bankacc(int accountn,String holder, int balance){
-        this.accountn = accountn;
-        this.holder = holder;
-        this.balance = balance;
+    BankAccount(String accountNo, String holderName, double balance) {
+        this.accountNo = accountNo;
+        this.holderName = holderName;
+        this.balance = Math.max(0, balance);
     }
 
-    public int getaccountn()
-    {
-        return accountn;
-    }
-    
-    public String getholder()
-    {
-        return holder;
-    }
-    
-    public int getbalance()
-    {
-        return balance;
-    }
-    public void setbalance(int balance)
-    {
-        this.balance = balance;
-    }
-
-    public void deposit(int amount){
-        if( amount >0){
-            balance += amount ;
-            System.out.println("deposited:" + balance);
-        }
-        else{
-            System.out.println("not deposited:" + balance);
+    void deposit(double amount) {
+        if (amount > 0) {
+            balance += amount;
+            System.out.println("Deposit successful.");
+        } else {
+            System.out.println("Deposit amount must be positive.");
         }
     }
 
-    public void withdraw(int amount){
-        if( amount >0 && amount<= balance){
-            balance -= amount ;
-            System.out.println("withdraw:" + balance);
-        }
-        else{
-            System.out.println("not withdrawn:" + balance);
-        }
-    }
-
-}
-
-class Savingsaccount extends Bankacc {
-
-    public Savingsaccount(int accountn ,String holder, int balance){
-        
-        super(accountn,holder, balance);
-    }
-    @Override
-     public void deposit(int amount){
-        if( amount >0){
-           setbalance(getbalance() + amount);
-            System.out.println("deposited:" + amount);
-        }
-        else{
-            System.out.println("not deposited:");
-        }
-    }
-    @Override
-    public void withdraw(int amount){
-        if( amount >0 && amount<= getbalance()){
-            setbalance(getbalance() - amount);
-            System.out.println("withdrawamounthdraw:" + amount);
-        }
-        else{
-            System.out.println("not withdrawn:");
+    void withdraw(double amount) {
+        if (amount <= 0) {
+            System.out.println("Withdraw amount must be positive.");
+        } else if (amount > balance) {
+            System.out.println("Insufficient balance.");
+        } else {
+            balance -= amount;
+            System.out.println("Withdraw successful.");
         }
     }
 
+    public String toString() {
+        return "BankAccount{accountNo='" + accountNo + "', holderName='" + holderName + "', balance=" + balance + "}";
+    }
 
-}
-public class BankAccount{
-    public static void main(String args[])
-    {
-       
+    public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        System.out.println("Enter accountnumber:");
-        int accountn = sc.nextInt();
-        System.out.println("enter name:");
-        String holder = sc.next();
 
-        System.out.println("enter the amount u had : ");
-        int balance = sc.nextInt();
-        Savingsaccount acc = new Savingsaccount(accountn, holder, balance);
-        for (int i =0;i <10;i++){
-            System.out.println("select deposit or withdraw:-");
-            String ss = sc.next();
-            if(ss.equalsIgnoreCase("deposit")){
-                System.out.println("enter amount to deposit:");
-                int amount =sc.nextInt();
-                acc.deposit(amount);
-                System.out.println("account no:"+ acc.getaccountn());
-                System.out.println("account holder :"+ acc.getholder());
-                System.out.println("account balance:"+ acc.getbalance());
+        System.out.print("Enter account number: ");
+        String accountNo = sc.nextLine();
+        System.out.print("Enter holder name: ");
+        String holderName = sc.nextLine();
+        System.out.print("Enter opening balance: ");
+        double balance = sc.nextDouble();
+
+        BankAccount account = new BankAccount(accountNo, holderName, balance);
+        int choice;
+
+        do {
+            System.out.println("1.Deposit 2.Withdraw 3.Show 4.Exit");
+            choice = sc.nextInt();
+
+            if (choice == 1) {
+                System.out.print("Enter deposit amount: ");
+                account.deposit(sc.nextDouble());
+            } else if (choice == 2) {
+                System.out.print("Enter withdraw amount: ");
+                account.withdraw(sc.nextDouble());
+            } else if (choice == 3) {
+                System.out.println(account);
             }
-            else
-            {
-                 System.out.println("enter amount to withdraw:");
-                int amount =sc.nextInt();
-                acc.withdraw(amount);
-                System.out.println("account no:"+ acc.getaccountn());
-                System.out.println("account holder :"+ acc.getholder());
-                System.out.println("account balance:"+ acc.getbalance());
-            }
-        }
-       
-        System.out.println("account no:"+ acc.getaccountn());
-        System.out.println("account holder :"+ acc.getholder());
-        System.out.println("account balance:"+ acc.getbalance());
+        } while (choice != 4);
+
+        sc.close();
     }
-
 }
-
-
