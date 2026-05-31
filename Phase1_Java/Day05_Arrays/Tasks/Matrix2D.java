@@ -1,53 +1,44 @@
 /*
 Question:
-How can you create a Java program to Create a 3x3 matrix, print it in formatted form, compute diagonal sums, and transpose it?
+How can you create a Java program for a 3x3 matrix, print it formatted, sum diagonal, and transpose it?
 */
 import java.util.Scanner;
-class Matrix2D{
-    public static void main(String args[])
-    {
+
+class Matrix2D {
+    public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        int r;
-        int c;
-        
-        System.out.println("Enter the num of rows:");
-        r = sc.nextInt();
-        System.out.println("enter the num of columns:");
-        c = sc.nextInt();
-        int A[][] = new int [r][c];
-        System.out.println("enter the values:");
-        for(int i = 0; i<r ; i++)
-        {
-            for(int j = 0; j <c; j++)
-            {
-                A[i][j] = sc.nextInt();
+        int[][] matrix = new int[3][3];
+
+        System.out.println("Enter 9 matrix values:");
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix[i].length; j++) {
+                matrix[i][j] = sc.nextInt();
             }
         }
-         for(int i = 0; i<r ; i++)
-        {
-            for(int j = 0; j <c; j++)
-            {
-                
-                System.out.print(A[i][j] +" ");
+
+        System.out.println("Matrix:");
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix[i].length; j++) {
+                System.out.printf("%4d", matrix[i][j]);
             }
-            System.out.println(" ");
+            System.out.println();
         }
-        int diag =0;
-        for(int i =0; i<r; i++)
-        {
-            diag += A[i][i];
-        }
-        System.out.println(diag);
 
-        for(int i =0; i<r; i++){
-            for(int j=0; j<c; j++){
-            System.out.print(A[j][i]+" ");
+        int diagonalSum = 0;
+        for (int i = 0; i < matrix.length; i++) {
+            diagonalSum += matrix[i][i];
         }
-    
-        System.out.println(" ");
-    }
-    sc.close();
-        
 
+        System.out.println("Diagonal sum: " + diagonalSum);
+
+        System.out.println("Transpose:");
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix[i].length; j++) {
+                System.out.printf("%4d", matrix[j][i]);
+            }
+            System.out.println();
+        }
+
+        sc.close();
     }
 }

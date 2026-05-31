@@ -1,25 +1,44 @@
 /*
 Question:
-How can you create a Java program to rotate an array right by K positions using the reverse technique with O(1) extra space?
+How can you create a Java program to rotate an array left by K using the triple-reverse technique with O(1) space?
 */
-class RotateArray{
-    public static void main (String []args)
-    {
-        int A[]={1,2,3,4,5,6,7,8};
-        
-        int temp;
-        temp = A[A.length-1];
-        for(int i= A.length-2; i>=0;i--)
-        {
-            A[i+1]=A[i];
-        }
-        A[0]=temp;
-        for (int x:A)
-        {
-            System.out.print(x +"");
-            System.out.println(" ");
-     
-       }
+import java.util.Arrays;
+import java.util.Scanner;
 
+class RotateArray {
+    static void reverse(int[] arr, int left, int right) {
+        while (left < right) {
+            int temp = arr[left];
+            arr[left] = arr[right];
+            arr[right] = temp;
+            left++;
+            right--;
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter array size: ");
+        int n = sc.nextInt();
+        int[] arr = new int[n];
+
+        System.out.println("Enter array elements:");
+        for (int i = 0; i < n; i++) {
+            arr[i] = sc.nextInt();
+        }
+
+        System.out.print("Enter k: ");
+        int k = sc.nextInt();
+
+        if (n > 0) {
+            k = k % n;
+            reverse(arr, 0, k - 1);
+            reverse(arr, k, n - 1);
+            reverse(arr, 0, n - 1);
+        }
+
+        System.out.println("After left rotation: " + Arrays.toString(arr));
+        sc.close();
     }
 }
