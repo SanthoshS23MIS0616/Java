@@ -5,7 +5,6 @@ How can you create a Java program to Complete a Phase 1 mock test from scratch w
 import java.util.*;
 
 public class Phase1MockTest {
-
     public static boolean isPalindrome(String str) {
         int left = 0;
         int right = str.length() - 1;
