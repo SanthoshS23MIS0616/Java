@@ -6,7 +6,6 @@ How can you create a Java program to Create a generic Pair<K,V>, a generic metho
 class Pair<K, V> {
     private K key;
     private V value;
-
     public Pair(K key, V value) {
         this.key = key;
         this.value = value;
