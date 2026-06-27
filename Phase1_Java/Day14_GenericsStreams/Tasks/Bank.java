@@ -2,6 +2,7 @@ class BankAccount {
     private int balance;
 
     public BankAccount(int balance) {
+        
         this.balance = balance;
     }
 
