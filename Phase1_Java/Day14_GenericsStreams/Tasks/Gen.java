@@ -1,7 +1,6 @@
 import java.util.ArrayList;
 
 class DataStore<T> {
-
     private T data;
 
     public DataStore(T data) {
